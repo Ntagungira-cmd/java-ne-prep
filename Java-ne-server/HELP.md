@@ -1,13 +1,22 @@
-# Getting Started
+# Running Spring Boot Application with Docker Compose
 
-### Reference Documentation
+## Prerequisites
 
+- Docker installed on your system
 
-### Guides
+## Step 1: Clone the Repository
 
-The following guides illustrate how to use some features concretely:
+```bash
+git clone <repository-url>
+cd <repository-directory>
+```
+## Step 2: Docker Compose
 
-* Modify database credentials in application.properties
-* Keep in mind that the auth token is kept in cookies
-* Go to any API Client(postman, insomnia e.t.c) and start testing.
+### 2.1 Using Docker Compose
 
+1. Open a terminal and navigate to your project directory.
+2. Run the following command to start the containers using Docker Compose:
+
+```bash
+docker-compose up
+```

@@ -11,6 +11,7 @@ import rw.rca.ntagungira.Repositories.ProductRepository;
 import rw.rca.ntagungira.Repositories.PurchasedRepository;
 import rw.rca.ntagungira.Repositories.QuantityRepository;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,16 +21,19 @@ public class ProductService {
     private ProductRepository productRepository;
     @Autowired
     private QuantityRepository quantityRepository;
-
     @Autowired
     private PurchasedRepository purchasedRepository;
+    @Autowired
+    private CloudinaryService cloudinaryService;
 
 
-    public Product createProduct(CreateProduct product){
+    public Product createProduct(CreateProduct product) throws IOException {
+        String img = cloudinaryService.uploadImage(product.getImage());
         Product newProduct = new Product();
         newProduct.setName(product.getName());
         newProduct.setPrice(product.getPrice());
         newProduct.setType(product.getType());
+        newProduct.setImage(img);
         return productRepository.save(newProduct);
     }
 

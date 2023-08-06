@@ -38,16 +38,17 @@ function Shop() {
   const handleAddToCart = (product) => {
     // Retrieve existing cart items from local storage
     const existingCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
+  
     // Check if the product is already in the cart
-    const existingProduct = existingCartItems.find((item) => item.id === product.id);
+    const existingProduct = existingCartItems.find((item) => item.code === product.code);
 
     if (existingProduct) {
       // Increment the quantity if the product already exists in the cart
       existingProduct.quantity++;
     } else {
       // Add the product to the cart with an initial quantity of 1
-      existingCartItems.push({ ...product, quantity: 1 });
+      let cartItem = {code : product.code, name : product.name, quantity : 1}
+      existingCartItems.push({ ...cartItem, quantity: 1 });
     }
 
     // Save the updated cart items in local storage
@@ -62,14 +63,14 @@ function Shop() {
       const cart = cartItems.map(item=>{
         return {productId:item.code,quantity:item.quantity}
       })
-      console.log(cart);
-
+  
       const response = await axios.post(API_URL + '/product/purchase', cart, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
+      
+      //console.log(response.data.code);
       // Handle the response after checkout (e.g., show success message, clear cart, etc.)
       //console.log('Checkout successful');
       if(response.data){
@@ -81,7 +82,8 @@ function Shop() {
       setCartItems([]);
       
     } catch (error) {
-      console.log('Checkout failed');
+      toast("Checkout failed");
+      toast("insufficient stock");
       console.log(error);
     }
   };

@@ -21,6 +21,7 @@ public class Product {
     private String name;
     private String type;
     private String price;
+    private String image;
 
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
